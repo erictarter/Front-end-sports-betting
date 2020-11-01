@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="nav-title">
+      <div class="nav-items ni-left">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="nav-items ni-mid">
+        <div></div>
+        <div>
+          <i class="fas fa-football-ball"></i>
+        </div>
+        <div>Scoreboard</div>
+        <div>
+          <i class="fas fa-basketball-ball"></i>
+        </div>
+      </div>
+      <div class="nav-items ni-right">
+        <div class="nav-item"><p>Account</p></div>
+        <div class="nav-item"><p>Login</p></div>
+        <div class="nav-item"><p>More</p></div>
+      </div>
+    </div>
+    <div class="bb"></div>
+    <div class="main-container" id="main-container">
+      <div class="sb-1"></div>
+      <div class="main" id="main">
+        <!-- <div class="sport-select">
+          <div>
+            <i class="fas fa-football-ball"></i>
+          </div>
+          <div>
+            <i class="fas fa-basketball-ball"></i>
+          </div>
+          <div>
+            <i class="fas fa-fist-raised"></i>
+          </div>
+        </div> -->
+        <div class="nfl-container" id="nfl-container">
+          <h2>NFL</h2>
+        </div>
+      </div>
+      <div class="sb-2" id="sb-2"></div>
+    </div>
+    <div class="menu-popout" id="menu-popout">
+      <div class="exit-menu"><i class="fas fa-times"></i></div>
+      <div class="mp-item">All Sports</div>
+      <div class="mp-item">NFL</div>
+      <div class="mp-item">NBA</div>
+      <div class="mp-item">UFC</div>
+      <div class="mp-item mp-item-mobile">Account</div>
+      <div class="mp-item mp-item-mobile">Login</div>
+      <div class="mp-item mp-item-mobile">More</div>
+    </div>
+    <div class="betslip-container" id="betslip-container">
+      <div class="exit-betslip" id="exit-betslip">
+        <div>
+          <i class="fas fa-times dark"></i>
+        </div>
+        <div class="message" id="message"></div>
+      </div>
+      <h2 class="dark">Bet Slip</h2>
+      <div class="bet-confirmation" id="bet-confirmation">
+        <h3>
+          Confirm Bet
+          <span class="confirm-icon">
+            <i class="fas fa-check confirm-icon" id="confirm-icon"></i
+          ></span>
+        </h3>
+        <button class="confirm-btn" id="confirm-btn">Confirm</button>
+        <button class="cancel-btn" id="cancel-btn">Cancel</button>
+      </div>
+      <div class="betslip-toggle" id="betslip-toggle">
+        <div class="bet-type">
+          <div class="straight dark selected" id="straight">Straight</div>
+          <div class="parlay dark " id="parlay">Parlay</div>
+        </div>
+        <div class="match-details-container" id="match-details-container"></div>
+        <div class="bet-summary">
+          <div class="cost dark" id="cost">
+            Cost - <span class="cash-amount dark" id="cash-amount">$0.00</span>
+          </div>
+          <div class="winnings dark" id="winnings">
+            Winnings -
+            <span class="cash-winnings dark" id="cash-winnings">
+              $0.00
+            </span>
+          </div>
+          <button class="place-bets-btn dark" id="place-bets-btn">
+            Place Bets
+          </button>
+          <button class="clear-bets-btn dark" id="clear-bets-btn">
+            Clear Bets
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="open-bets-container" id="open-bets-container">
+      <div class="ob-top-row">
+        <div class="exit-open-bets" id="exit-open-bets">
+          <i class="fas fa-times dark"></i>
+        </div>
+        <div class="parlay-or-straight dark">
+          <span class="pink">(p)</span> = parlay <br />
+          <span class="green">(s)</span> = straight
+        </div>
+      </div>
+      <div class="ob-grid-head">
+        <div class="ob-game dark">Game</div>
+        <div class="ob-odds dark">Odds</div>
+        <div class="ob-cost dark">Bet Amount</div>
+        <div class="ob-winnings dark">To Win</div>
+      </div>
+      <div class="ob-grid-games" id="ob-grid-games"></div>
+    </div>
+    <footer class="sticky" id="sticky">
+      <div class="home-footer footer-item">Home</div>
+      <div class="bet-slip footer-item" id="betslip">
+        <div class="num-of-bets" id="num-of-bets"></div>
+        Betslip
+      </div>
+      <div class="open-bets footer-item" id="open-bets">
+        <div class="num-open-bets" id="num-open-bets">1</div>
+        Open Bets
+      </div>
+    </footer>
+    <script src="app.js"></script>
+  </body>
+</html>

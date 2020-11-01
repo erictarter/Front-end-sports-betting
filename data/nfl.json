@@ -1,0 +1,92 @@
+[
+  {
+    "date": {
+      "date": "10/18",
+      "time": "10:00 PST"
+    },
+    "away": {
+      "name": "Seattle",
+      "moneyline": -120,
+      "spread": -3,
+      "total": "total 44"
+    },
+    "home": {
+      "name": "Dallas",
+      "moneyline": "+110",
+      "spread": "+3",
+      "total": "total 44"
+    }
+  },
+  {
+    "date": {
+      "date": "10/18",
+      "time": "10:00 PST"
+    },
+    "away": {
+      "name": "Green Bay",
+      "moneyline": "+150",
+      "spread": "+4",
+      "total": "total 47"
+    },
+    "home": {
+      "name": "Baltimore",
+      "moneyline": -170,
+      "spread": -4,
+      "total": "total 47"
+    }
+  },
+  {
+    "date": {
+      "date": "10/18",
+      "time": "10:00 PST"
+    },
+    "away": {
+      "name": "Buffalo",
+      "moneyline": -190,
+      "spread": -3.5,
+      "total": "total 43"
+    },
+    "home": {
+      "name": "Tennesee",
+      "moneyline": "+140",
+      "spread": "+3.5",
+      "total": "total 43"
+    }
+  },
+  {
+    "date": {
+      "date": "10/18",
+      "time": "10:00 PST"
+    },
+    "away": {
+      "name": "Cincinati",
+      "moneyline": "+240",
+      "spread": "+7.5",
+      "total": "total 48.5"
+    },
+    "home": {
+      "name": "Indianapolis",
+      "moneyline": -290,
+      "spread": -7.5,
+      "total": "total 48.5"
+    }
+  },
+  {
+    "date": {
+      "date": "10/18",
+      "time": "10:00 PST"
+    },
+    "away": {
+      "name": "Denver",
+      "moneyline": "+250",
+      "spread": "+6",
+      "total": "total 42.5"
+    },
+    "home": {
+      "name": "New England",
+      "moneyline": -270,
+      "spread": -6,
+      "total": "total 42.5"
+    }
+  }
+]
