@@ -283,6 +283,41 @@ body {
   justify-content: space-between;
 }
 
+.betslip-toggle {
+  display: none;
+}
+
+.choose-bet-type {
+  text-align: center;
+  padding: 1rem;
+  margin: 0.2rem;
+  background: #333;
+  height: 74%;
+}
+.choose-straight {
+  padding: 0.2rem 1rem;
+  font-size: 2.8rem;
+  cursor: pointer;
+  color: #333;
+  border: none;
+}
+.choose-parlay {
+  padding: 0.2rem 1rem;
+  font-size: 2.8rem;
+  cursor: pointer;
+  color: #333;
+  border: none;
+}
+
+.choose-parlay:hover {
+  background: rgb(225, 86, 123);
+  transition: all 0.2s ease;
+}
+.choose-straight:hover {
+  background: rgb(225, 86, 123);
+  transition: all 0.2s ease;
+}
+
 .message {
   font-size: 1rem;
   background: rgb(225, 86, 123);
@@ -309,33 +344,57 @@ body {
 .bet-type {
   font-size: 1.4rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   place-items: center;
   border-bottom: 1px solid #333;
   margin-bottom: 1.5rem;
 }
 
-.straight {
+.change-type:hover {
+  transition: 0.2s all ease;
+  background: rgb(233, 192, 130);
   cursor: pointer;
-  padding: 0.2rem 1rem;
-  border: 1px solid grey;
-  border-radius: 10px;
-  margin: 1rem;
-}
-.parlay {
-  cursor: pointer;
-  padding: 0.2rem 1rem;
-  border: 1px solid grey;
-  border-radius: 10px;
-  margin: 1rem;
 }
 
-.straight:hover {
+.straight {
+  padding: 0.2rem 1rem;
+  border: 1px solid grey;
+  border-radius: 10px;
+  margin: 1rem;
+  font-size: 1.4rem;
+}
+.parlay {
+  padding: 0.2rem 1rem;
+  border: 1px solid grey;
+  border-radius: 10px;
+  margin: 1rem;
+  font-size: 1.4rem;
+}
+
+.parlay-input {
+  margin-bottom: 0.5rem;
+  display: none;
+}
+.parlay-amount {
+  padding: 0.1rem;
+  font-size: 1.2rem;
+  width: 4rem;
+}
+
+.change-type {
+  padding: 0.2rem 1rem;
+  border: 1px solid grey;
+  border-radius: 10px;
+  margin: 1rem;
+  font-size: 1.4rem;
+}
+
+/* .straight:hover {
   border-color: rgb(216, 20, 89);
 }
 .parlay:hover {
   border-color: rgb(216, 20, 89);
-}
+} */
 
 .parlay.selected {
   background: rgb(140, 191, 169);

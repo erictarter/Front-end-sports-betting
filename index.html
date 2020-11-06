@@ -87,13 +87,34 @@
         <button class="confirm-btn" id="confirm-btn">Confirm</button>
         <button class="cancel-btn" id="cancel-btn">Cancel</button>
       </div>
+      <div class="choose-bet-type" id="choose-bet-type">
+        <h1>What kind of bet do you want?</h1>
+        <button class="choose-straight" id="choose-straight">straight</button>
+        <button class="choose-parlay" id="choose-parlay">parlay</button>
+      </div>
       <div class="betslip-toggle" id="betslip-toggle">
         <div class="bet-type">
-          <div class="straight dark selected" id="straight">Straight</div>
-          <div class="parlay dark " id="parlay">Parlay</div>
+          <button class="straight dark selected" id="straight">Straight</button>
+          <button class="change-type dark" id="change-type">
+            switch <i class="fas fa-exchange-alt dark"></i>
+          </button>
+          <button class="parlay dark " id="parlay">Parlay</button>
         </div>
         <div class="match-details-container" id="match-details-container"></div>
         <div class="bet-summary">
+          <div class="parlay-input" id="parlay-input">
+            <label class="parlay-label dark" for="#parlay-amount"
+              >parlay amount</label
+            >
+            <input
+              type="number"
+              name="parlay-amount"
+              id="parlay-amount"
+              class="parlay-amount dark"
+              value="0"
+              min="0"
+            />
+          </div>
           <div class="cost dark" id="cost">
             Cost - <span class="cash-amount dark" id="cash-amount">$0.00</span>
           </div>

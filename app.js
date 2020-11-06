@@ -35,6 +35,9 @@ const cost = document.getElementById('cost');
 const winnings = document.getElementById('winnings');
 const cashWinnings = document.getElementById('cash-winnings');
 const messageEl = document.getElementById('message');
+const chooseBetType = document.getElementById('choose-bet-type');
+const changeType = document.getElementById('change-type');
+const parlayInput = document.getElementById('parlay-input');
 
 // STATE NUMBERS
 
@@ -113,6 +116,9 @@ cancelBtn.addEventListener('click', () => {
   betSlipContainer.classList.remove('bs-slide-in');
   betSlipContainer.classList.add('bs-slide-out');
   cancelBet(500);
+  setTimeout(() => {
+    chooseBetType.style.display = 'block';
+  }, 500);
 });
 
 // CONFIRM BET
@@ -137,6 +143,9 @@ confirmBtn.addEventListener('click', () => {
       numOfOpenBets.style.display = 'block';
     }
   }, 1000);
+  setTimeout(() => {
+    chooseBetType.style.display = 'block';
+  }, 1500);
   console.log(openBetStorage);
   updateWinnings();
 });
@@ -229,6 +238,7 @@ let betsSelected = [];
 let numberOfBets = 0;
 let costState = 0;
 let winningsState = 0;
+let parlayAmount = 0;
 let typeOfBet = 'straight';
 let inner = ``;
 let openBetStorage = [];
@@ -250,48 +260,78 @@ function betEventFunc(e) {
     };
 
     if (betsSelected.length < 10) {
-      betsSelected.push(betSelect);
-      matchDetailsContainer.innerHTML += `
-      <div class="match-details" id=${betsSelected.length}>
-      <div class="match-details-odds dark">
-      <span class='remove-bet' id='remove-bet'><i class='fas fa-minus' id=${betsSelected.length -
-        1}></i></span>
-      ${betSelect.selectedTeamName} ${betSelect.odds}
-      <label class='bet-label' for='#single-bet'>amount</label>
-      <input type="number" name='single-bet' id="single-bet" class='single-bet' min='1' max='500' value=${
-        betsSelected.value
-      } placeholder=0>
-      </div>
-      </div>
-      `;
-      numberOfBets++;
-      numOfBets.innerText = numberOfBets;
-      numOfBets.style.display = 'block';
-      numOfBets.classList.add('bet-num-animation');
-      document.querySelectorAll('#single-bet').forEach(i => {
-        i.addEventListener('change', e => {
-          if (betsSelected.length > 1) {
-            betsSelected[e.target.parentNode.parentNode.id - 1].amount =
-              e.target.value;
-            updateBetAmount();
-            updateWinnings();
-          } else {
-            betsSelected[0].amount = e.target.value;
-            updateBetAmount();
-            updateWinnings();
-          }
+      if (typeOfBet === 'straight') {
+        betsSelected.push(betSelect);
+        matchDetailsContainer.innerHTML += `
+        <div class="match-details" id=${betsSelected.length}>
+        <div class="match-details-odds dark">
+        <span class='remove-bet' id='remove-bet'><i class='fas fa-minus' id=${betsSelected.length -
+          1}></i></span>
+        ${betSelect.selectedTeamName} ${betSelect.odds}
+        <label class='bet-label' for='#single-bet'>amount</label>
+        <input type="number" name='single-bet' id="single-bet" class='single-bet' min='1' max='500' value=${
+          betsSelected.value
+        } placeholder=0>
+        </div>
+        </div>
+        `;
+        numberOfBets++;
+        numOfBets.innerText = numberOfBets;
+        numOfBets.style.display = 'block';
+        numOfBets.classList.add('bet-num-animation');
+        document.querySelectorAll('#single-bet').forEach(i => {
+          i.addEventListener('change', e => {
+            if (betsSelected.length > 1) {
+              betsSelected[e.target.parentNode.parentNode.id - 1].amount =
+                e.target.value;
+              updateBetAmount();
+              updateWinnings();
+            } else {
+              betsSelected[0].amount = e.target.value;
+              updateBetAmount();
+              updateWinnings();
+            }
+          });
         });
-      });
-      setTimeout(() => {
-        numOfBets.classList.remove('bet-num-animation');
-      }, 350);
-      let removeBetIcons = document.querySelectorAll('.remove-bet');
-      removeBetIcons.forEach(i => {
-        i.addEventListener('click', e => {
-          removeBetNum(e.target.id);
+        setTimeout(() => {
+          numOfBets.classList.remove('bet-num-animation');
+        }, 350);
+        let removeBetIcons = document.querySelectorAll('.remove-bet');
+        removeBetIcons.forEach(i => {
+          i.addEventListener('click', e => {
+            removeBetNum(e.target.id);
+          });
         });
-      });
-      updateInput();
+        updateInput();
+      }
+      if (typeOfBet === 'parlay') {
+        betsSelected.push(betSelect);
+        matchDetailsContainer.innerHTML += `
+        <div class="match-details" id=${betsSelected.length}>
+        <div class="match-details-odds dark">
+        <span class='remove-bet' id='remove-bet'><i class='fas fa-minus' id=${betsSelected.length -
+          1}></i></span>
+        ${betSelect.selectedTeamName} ${betSelect.odds}
+        </div>
+        </div>
+        `;
+        numberOfBets++;
+        numOfBets.innerText = numberOfBets;
+        numOfBets.style.display = 'block';
+        numOfBets.classList.add('bet-num-animation');
+        parlayInput.style.display = 'block';
+        updateWinnings();
+
+        setTimeout(() => {
+          numOfBets.classList.remove('bet-num-animation');
+        }, 350);
+        let removeBetIcons = document.querySelectorAll('.remove-bet');
+        removeBetIcons.forEach(i => {
+          i.addEventListener('click', e => {
+            removeBetNum(e.target.id);
+          });
+        });
+      }
     } else {
       message('10 Bet max per slip');
     }
@@ -310,52 +350,81 @@ function betEventFunc(e) {
       winnings: 0
     };
     if (betsSelected.length < 10) {
-      betsSelected.push(betSelect);
-      matchDetailsContainer.innerHTML += `
-      <div class="match-details" id=${betsSelected.length}>
-      <div class="match-details-odds dark">
-      <span class='remove-bet' id='remove-bet'><i class='fas fa-minus' id=${betsSelected.length -
-        1}></i></span>
-      ${betSelect.selectedTeamName} ${betSelect.odds}
-      <label class='bet-label' for='#single-bet'>amount</label>
-      <input type="number" name='single-bet' id="single-bet" class='single-bet' min='1' max='500' value=${
-        betsSelected.amount
-      } placeholder=0>
-      </div>
-      </div>
-      `;
-      numberOfBets++;
-      numOfBets.innerText = numberOfBets;
-      numOfBets.style.display = 'block';
-      numOfBets.classList.add('bet-num-animation');
-      setTimeout(() => {
-        numOfBets.classList.remove('bet-num-animation');
-      }, 350);
+      if (typeOfBet === 'straight') {
+        betsSelected.push(betSelect);
+        matchDetailsContainer.innerHTML += `
+        <div class="match-details" id=${betsSelected.length}>
+        <div class="match-details-odds dark">
+        <span class='remove-bet' id='remove-bet'><i class='fas fa-minus' id=${betsSelected.length -
+          1}></i></span>
+        ${betSelect.selectedTeamName} ${betSelect.odds}
+        <label class='bet-label' for='#single-bet'>amount</label>
+        <input type="number" name='single-bet' id="single-bet" class='single-bet' min='1' max='500' value=${
+          betsSelected.amount
+        } placeholder=0>
+        </div>
+        </div>
+        `;
+        numberOfBets++;
+        numOfBets.innerText = numberOfBets;
+        numOfBets.style.display = 'block';
+        numOfBets.classList.add('bet-num-animation');
+        setTimeout(() => {
+          numOfBets.classList.remove('bet-num-animation');
+        }, 350);
 
-      document.querySelectorAll('#single-bet').forEach(i => {
-        i.addEventListener('change', e => {
-          if (betsSelected.length > 1) {
-            if (e.target.value !== '') {
-              betsSelected[e.target.parentNode.parentNode.id - 1].amount =
-                e.target.value;
+        document.querySelectorAll('#single-bet').forEach(i => {
+          i.addEventListener('change', e => {
+            if (betsSelected.length > 1) {
+              if (e.target.value !== '') {
+                betsSelected[e.target.parentNode.parentNode.id - 1].amount =
+                  e.target.value;
+                updateBetAmount();
+                updateWinnings();
+              }
+            } else {
+              betsSelected[0].amount = e.target.value;
               updateBetAmount();
               updateWinnings();
             }
-          } else {
-            betsSelected[0].amount = e.target.value;
-            updateBetAmount();
-            updateWinnings();
-          }
+          });
         });
-      });
 
-      let removeBetIcons = document.querySelectorAll('.remove-bet');
-      removeBetIcons.forEach(i => {
-        i.addEventListener('click', e => {
-          removeBetNum(e.target.id);
+        let removeBetIcons = document.querySelectorAll('.remove-bet');
+        removeBetIcons.forEach(i => {
+          i.addEventListener('click', e => {
+            removeBetNum(e.target.id);
+          });
         });
-      });
-      updateInput();
+        updateInput();
+      }
+      if (typeOfBet === 'parlay') {
+        betsSelected.push(betSelect);
+        matchDetailsContainer.innerHTML += `
+        <div class="match-details" id=${betsSelected.length}>
+        <div class="match-details-odds dark">
+        <span class='remove-bet' id='remove-bet'><i class='fas fa-minus' id=${betsSelected.length -
+          1}></i></span>
+        ${betSelect.selectedTeamName} ${betSelect.odds}
+        </div>
+        </div>
+        `;
+        numberOfBets++;
+        numOfBets.innerText = numberOfBets;
+        numOfBets.style.display = 'block';
+        numOfBets.classList.add('bet-num-animation');
+        parlayInput.style.display = 'block';
+        updateWinnings;
+        setTimeout(() => {
+          numOfBets.classList.remove('bet-num-animation');
+        }, 350);
+        let removeBetIcons = document.querySelectorAll('.remove-bet');
+        removeBetIcons.forEach(i => {
+          i.addEventListener('click', e => {
+            removeBetNum(e.target.id);
+          });
+        });
+      }
     } else {
       message('10 Bet max per slip');
     }
@@ -447,9 +516,9 @@ function updateWinnings() {
     });
     if (betsSelected.length > 0) {
       winningsState = allWinnings.reduce((acc, curr) => acc + curr).toFixed(2);
-      winnings.innerText = `Winnings - $${winningsState}`;
+      cashWinnings.innerText = `${winningsState}`;
     } else {
-      winnings.innerText = `Winnings - $0.00`;
+      cashWinnings.innerText = `$0.00`;
     }
   } else {
     let allWinnings = [];
@@ -476,9 +545,9 @@ function updateWinnings() {
     });
     if (betsSelected.length > 0) {
       winningsState = allWinnings.reduce((acc, curr) => acc + curr).toFixed(2);
-      winnings.innerText = `Winnings - $${winningsState}`;
+      cashWinnings.innerText = `${winningsState}`;
     } else {
-      winnings.innerText = `Winnings - $0.00`;
+      cashWinnings.innerText = `$0.00`;
     }
   }
 }
@@ -499,6 +568,7 @@ function updateBetAmount() {
   if (betsSelected.length > 0) {
     costState = allAmounts.reduce((acc, curr) => acc + curr);
   }
+  console.log(betsSelected);
 }
 
 function updateInput() {
@@ -517,9 +587,13 @@ function cancelBet(time) {
     betConfirmation.style.display = 'none';
     betsSelected = [];
     matchDetailsContainer.innerHTML = '';
+    console.log(betsSelected);
   }, time);
   numOfBets.style.display = 'none';
   cashAmount.innerText = '$0.00';
+  cashWinnings.innerText = `$0.00`;
+  document.getElementById('parlay-amount').value = 0;
+  parlayInput.style.display = 'none';
 }
 
 // MESSAGE/ERROR FUNC
@@ -606,6 +680,76 @@ function addOpenBetHTML() {
 
 // LOGIN / SIGN UP / CREATE ACCOUNT / LS?
 
-// BETSLIP TOGGLE DISPLAY NONE
+// WHEN CHOOSING BET TYPE - IF PARLAY/REMOVE INPUT FROM EACH GAME
+document.getElementById('choose-straight').addEventListener('click', () => {
+  chooseBetType.style.display = 'none';
+  typeOfBet = 'straight';
+  straight.classList.add('selected');
+  parlay.classList.remove('selected');
+  betslipToggle.style.display = 'block';
+});
+document.getElementById('choose-parlay').addEventListener('click', () => {
+  chooseBetType.style.display = 'none';
+  typeOfBet = 'parlay';
+  straight.classList.remove('selected');
+  parlay.classList.add('selected');
+  if (betsSelected.length > 0) {
+    parlayInput.style.display = 'block';
+  }
+  removeInp();
+  betslipToggle.style.display = 'block';
+});
 
-// GET PARLAY MATH
+// DISABLE BUTTONS
+
+straight.disabled = true;
+parlay.disabled = true;
+
+// PARLAY INPUT
+document.getElementById('parlay-amount').addEventListener('change', e => {
+  if (e.target.value > 0) {
+    parlayAmount = parseInt(e.target.value).toFixed(2);
+    let multiplyer = 0;
+    betsSelected.map(i => {
+      i.amount = parseInt(e.target.value);
+      let parseOdds = parseInt(i.odds.slice(1));
+      if (i.betType[0] === 'money') {
+        if (i.odds[0] === '+') {
+          multiplyer += parseOdds / 100 + 1;
+        }
+        if (i.odds[0] === '-') {
+          multiplyer += 100 / parseOdds + 1;
+        }
+      } else {
+        multiplyer += 2;
+      }
+    });
+    costState = parseInt(e.target.value);
+    winningsState = (costState * multiplyer).toFixed(2);
+    cashAmount.innerText = `${parlayAmount}`;
+    cashWinnings.innerText = `${winningsState}`;
+  } else {
+    message('invalid amount');
+  }
+});
+
+// CHANGE TYPE FUNC
+changeType.addEventListener('click', changeTypeFunc);
+function changeTypeFunc() {
+  betsSelected = [];
+  chooseBetType.style.display = 'block';
+  cancelBet(0);
+}
+
+// REMOVE INP FUNCTIONS
+function removeInp() {
+  document.querySelectorAll('.match-details').forEach(i => {
+    let getInputs = document.getElementById('single-bet');
+    let label = document.querySelector('label');
+    i.children[0].removeChild(getInputs);
+    i.children[0].removeChild(label);
+  });
+}
+
+// SWITCH BET TYPE - IF TYPEOF BET ADD OR REMOVE INPUTS
+// RESET BETSLIP IF BET IS CONFIRMED - MAYBE CANCELED?
