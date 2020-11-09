@@ -18,6 +18,72 @@
     />
   </head>
   <body>
+    <div class="dim" id="dim"></div>
+    <div class="login-form" id="login-form">
+      <i class="fas fa-times exit-form" id="exit-form"></i>
+      <br />
+      <h2>Log in</h2>
+      <form action="" id="login-form-1">
+        <div class="form-container" id="form-container">
+          <label for="#username-login">username</label>
+          <input
+            type="text"
+            class="username-login"
+            id="username-login"
+            placeholder="enter username"
+            value=""
+          />
+          <label for="#username-pass">password</label>
+          <input
+            type="password"
+            class="pass-login"
+            id="pass-login"
+            placeholder="enter password"
+            value=""
+          />
+          <input
+            type="submit"
+            class="submit-login dark"
+            id="submit-login"
+            value="log in"
+          />
+        </div>
+      </form>
+      don't have an account? <br />
+      <button class="sign-up-btn dark" id="sign-up-btn">
+        Create Account
+      </button>
+    </div>
+    <div class="sign-up-form" id="sign-up-form">
+      <i class="fas fa-times exit-form" id="exit-form"></i>
+      <h2>Sign Up</h2>
+      <form action="" id="sign-up-form-1">
+        <div class="form-container" id="form-container">
+          <label for="#username-sign-up">username</label>
+          <input
+            type="text"
+            class="username-sign-up"
+            id="username-sign-up"
+            placeholder="enter username"
+            value=""
+          />
+          <label for="#username-pass">password</label>
+          <input
+            type="password"
+            class="pass-sign-up"
+            id="pass-sign-up"
+            placeholder="enter password"
+            value=""
+          />
+          <input
+            type="submit"
+            class="submit-sign-up dark"
+            id="submit-sign-up"
+            value="submit"
+          />
+        </div>
+      </form>
+    </div>
     <div class="nav-title">
       <div class="nav-items ni-left">
         <i class="fas fa-bars"></i>
@@ -34,7 +100,7 @@
       </div>
       <div class="nav-items ni-right">
         <div class="nav-item"><p>Account</p></div>
-        <div class="nav-item"><p>Login</p></div>
+        <div class="nav-item" id="login-item"><p>Login</p></div>
         <div class="nav-item"><p>More</p></div>
       </div>
     </div>
@@ -55,19 +121,40 @@
         </div> -->
         <div class="nfl-container" id="nfl-container">
           <h2>NFL</h2>
+          <div class="no-matches ufc" id="no-matches-nfl">
+            No Events Scheduled
+          </div>
+        </div>
+        <div class="nba-container" id="nba-container">
+          <h2>NBA</h2>
+          <div class="no-matches ufc" id="no-matches-nba">
+            No Events Scheduled
+          </div>
+        </div>
+        <div class="ufc-container" id="ufc-container">
+          <h2>UFC</h2>
+          <div class="no-matches ufc" id="no-matches-ufc">
+            No Events Scheduled
+          </div>
+        </div>
+        <div class="mlb-container" id="mlb-container">
+          <h2>MLB</h2>
+          <div class="no-matches ufc" id="no-matches-mlb">
+            No Events Scheduled
+          </div>
         </div>
       </div>
       <div class="sb-2" id="sb-2"></div>
     </div>
     <div class="menu-popout" id="menu-popout">
       <div class="exit-menu"><i class="fas fa-times"></i></div>
-      <div class="mp-item">All Sports</div>
-      <div class="mp-item">NFL</div>
-      <div class="mp-item">NBA</div>
-      <div class="mp-item">UFC</div>
+      <div class="mp-item" id="nfl-mp-item">NFL</div>
+      <div class="mp-item" id="nba-mp-item">NBA</div>
+      <div class="mp-item" id="ufc-mp-item">UFC</div>
+      <div class="mp-item" id="mlb-mp-item">MLB</div>
+
       <div class="mp-item mp-item-mobile">Account</div>
-      <div class="mp-item mp-item-mobile">Login</div>
-      <div class="mp-item mp-item-mobile">More</div>
+      <div class="mp-item mp-item-mobile" id="login-item">Login</div>
     </div>
     <div class="betslip-container" id="betslip-container">
       <div class="exit-betslip" id="exit-betslip">
@@ -94,7 +181,9 @@
       </div>
       <div class="betslip-toggle" id="betslip-toggle">
         <div class="bet-type">
-          <button class="straight dark selected" id="straight">Straight</button>
+          <button class="straight dark selected" id="straight">
+            Straight
+          </button>
           <button class="change-type dark" id="change-type">
             switch <i class="fas fa-exchange-alt dark"></i>
           </button>
@@ -116,7 +205,8 @@
             />
           </div>
           <div class="cost dark" id="cost">
-            Cost - <span class="cash-amount dark" id="cash-amount">$0.00</span>
+            Cost -
+            <span class="cash-amount dark" id="cash-amount">$0.00</span>
           </div>
           <div class="winnings dark" id="winnings">
             Winnings -
@@ -152,7 +242,7 @@
       <div class="ob-grid-games" id="ob-grid-games"></div>
     </div>
     <footer class="sticky" id="sticky">
-      <div class="home-footer footer-item">Home</div>
+      <div class="home-footer footer-item" id="home">Home</div>
       <div class="bet-slip footer-item" id="betslip">
         <div class="num-of-bets" id="num-of-bets"></div>
         Betslip
@@ -163,5 +253,6 @@
       </div>
     </footer>
     <script src="app.js"></script>
+    <script src="forms.js"></script>
   </body>
 </html>

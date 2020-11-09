@@ -1,0 +1,92 @@
+[
+  {
+    "date": {
+      "date": "10/18",
+      "time": "10:00 PST"
+    },
+    "away": {
+      "name": "Porland",
+      "moneyline": -120,
+      "spread": -3,
+      "total": "total 124"
+    },
+    "home": {
+      "name": "LAL",
+      "moneyline": "+110",
+      "spread": "+3",
+      "total": "total 124"
+    }
+  },
+  {
+    "date": {
+      "date": "10/18",
+      "time": "10:00 PST"
+    },
+    "away": {
+      "name": "Denver",
+      "moneyline": "+150",
+      "spread": "+4",
+      "total": "total 127"
+    },
+    "home": {
+      "name": "Boston",
+      "moneyline": -170,
+      "spread": -4,
+      "total": "total 127"
+    }
+  },
+  {
+    "date": {
+      "date": "10/18",
+      "time": "10:00 PST"
+    },
+    "away": {
+      "name": "Golden State",
+      "moneyline": -190,
+      "spread": -3.5,
+      "total": "total 133"
+    },
+    "home": {
+      "name": "Utah",
+      "moneyline": "+140",
+      "spread": "+3.5",
+      "total": "total 133"
+    }
+  },
+  {
+    "date": {
+      "date": "10/18",
+      "time": "10:00 PST"
+    },
+    "away": {
+      "name": "Cleveland",
+      "moneyline": "+140",
+      "spread": "+7.5",
+      "total": "total 128.5"
+    },
+    "home": {
+      "name": "Indiana",
+      "moneyline": -190,
+      "spread": -7.5,
+      "total": "total 128.5"
+    }
+  },
+  {
+    "date": {
+      "date": "10/18",
+      "time": "10:00 PST"
+    },
+    "away": {
+      "name": "Phoenix",
+      "moneyline": "+150",
+      "spread": "+6",
+      "total": "total 122.5"
+    },
+    "home": {
+      "name": "Orlando",
+      "moneyline": -270,
+      "spread": -6,
+      "total": "total 122.5"
+    }
+  }
+]

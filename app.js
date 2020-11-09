@@ -27,6 +27,9 @@ const matchDetailsContainer = document.getElementById(
   'match-details-container'
 );
 const nflContainer = document.getElementById('nfl-container');
+const nbaContainer = document.getElementById('nba-container');
+const ufcContainer = document.getElementById('ufc-container');
+const mlbContainer = document.getElementById('mlb-container');
 const confirmBtn = document.getElementById('confirm-btn');
 const cancelBtn = document.getElementById('cancel-btn');
 const numOfBets = document.getElementById('num-of-bets');
@@ -63,7 +66,20 @@ function menuClick() {
 document.querySelectorAll('.mp-item').forEach(i => {
   i.addEventListener('click', mpItemSelect);
 });
-function mpItemSelect() {
+function mpItemSelect(e) {
+  let target = e.target.id.slice(0, 3);
+  target === 'nfl'
+    ? filterSportFunc(nbaContainer, ufcContainer, mlbContainer, nflContainer)
+    : null;
+  target === 'nba'
+    ? filterSportFunc(nflContainer, ufcContainer, mlbContainer, nbaContainer)
+    : null;
+  target === 'ufc'
+    ? filterSportFunc(nbaContainer, nflContainer, mlbContainer, ufcContainer)
+    : null;
+  target === 'mlb'
+    ? filterSportFunc(nbaContainer, ufcContainer, nflContainer, mlbContainer)
+    : null;
   menuClick();
 }
 
@@ -139,14 +155,15 @@ confirmBtn.addEventListener('click', () => {
     addOpenBetHTML();
     cancelBet(0);
     winningsState = 0;
+    unChanged = true;
     if ((numOfOpenBets.style.display = 'none')) {
       numOfOpenBets.style.display = 'block';
     }
   }, 1000);
   setTimeout(() => {
     chooseBetType.style.display = 'block';
+    typeOfBet = 'straight';
   }, 1500);
-  console.log(openBetStorage);
   updateWinnings();
 });
 
@@ -157,6 +174,9 @@ clearBetsBtn.addEventListener('click', () => {
 
 placeBetsBtn.addEventListener('click', () => {
   let proceed = true;
+  if (betsSelected.length === 0) {
+    proceed = false;
+  }
   betsSelected.map(i => {
     if (i.amount === 0) {
       proceed = false;
@@ -197,38 +217,48 @@ document.getElementById('exit-open-bets').addEventListener('click', () => {
   openBetsContainer.classList.add('open-bets-slide-out');
 });
 
-// GET NFL DATA FROM JSON
-fetch('./data/nfl.json')
-  .then(response => response.json())
-  .then(data =>
-    data.map(game => {
-      nflContainer.innerHTML += `
-      <div class='date-time'>
-      ${game.date.date} ${game.date.time}
+// GET TEAM SPORT DATA
+fetchTeamSportData('nfl', nflContainer);
+fetchTeamSportData('nba', nbaContainer);
+fetchTeamSportData('ufc', ufcContainer);
+fetchTeamSportData('mlb', mlbContainer);
+
+function fetchTeamSportData(sport, cont) {
+  fetch(`./data/${sport}.json`)
+    .then(response => response.json())
+    .then(data =>
+      data.map(game => {
+        if (data !== []) {
+          cont.innerHTML += `
+        <div class='date-time'>
+        ${game.date.date} ${game.date.time}
+        </div>
+        <div class="nfl-game" id='nfl-game'>
+        <div class="pholder">
+          <div class="empty"></div>
+          <div class="moneyline-pholder">Money</div>
+          <div class="spread-pholder">Spread</div>
+          <class="total-pholder">Total</>
+        </div>
+        <div class="team-1">
+          <div class="nfl-team-name">${game.away.name}</div>
+          <div class="money">${game.away.moneyline}</div>
+          <div class="spread">${game.away.spread}</div>
+          <div class="total">${game.away.total.slice(5)}</div>
+        </div>
+        <div class="team-2">
+          <div class="nfl-team-name">${game.home.name}</div>
+          <div class="money">${game.home.moneyline}</div>
+          <div class="spread">${game.home.spread}</div>
+          <div class="total">${game.home.total.slice(5)}</div>
+        </div>
       </div>
-      <div class="nfl-game" id='nfl-game'>
-      <div class="pholder">
-        <div class="empty"></div>
-        <div class="moneyline-pholder">Money</div>
-        <div class="spread-pholder">Spread</div>
-        <div class="total-pholder">Total</div>
-      </div>
-      <div class="team-1">
-        <div class="nfl-team-name">${game.away.name}</div>
-        <div class="money">${game.away.moneyline}</div>
-        <div class="spread">${game.away.spread}</div>
-        <div class="total">${game.away.total.slice(5)}</div>
-      </div>
-      <div class="team-2">
-        <div class="nfl-team-name">${game.home.name}</div>
-        <div class="money">${game.home.moneyline}</div>
-        <div class="spread">${game.home.spread}</div>
-        <div class="total">${game.home.total.slice(5)}</div>
-      </div>
-    </div>
-      `;
-    })
-  );
+        `;
+          document.getElementById(`no-matches-${sport}`).style.display = 'none';
+        }
+      })
+    );
+}
 
 // BET SLIP STATE
 let openBets = [];
@@ -414,7 +444,7 @@ function betEventFunc(e) {
         numOfBets.style.display = 'block';
         numOfBets.classList.add('bet-num-animation');
         parlayInput.style.display = 'block';
-        updateWinnings;
+        updateWinnings();
         setTimeout(() => {
           numOfBets.classList.remove('bet-num-animation');
         }, 350);
@@ -477,11 +507,15 @@ function removeBetNum(r) {
     numOfBets.classList.remove('bet-num-animation');
   }, 350);
   if (numberOfBets === 0) {
+    parlayInput.style.display = 'none';
+    cashAmount.innerText = `$0.00`;
     setTimeout(() => {
       numOfBets.style.display = 'none';
     }, 1000);
   }
-  updateBetAmount();
+  if (typeOfBet === 'straight') {
+    updateBetAmount();
+  }
   updateWinnings();
 }
 
@@ -526,12 +560,14 @@ function updateWinnings() {
       if (i.betType.value === 'money') {
         let line;
         if (i.odds[0] === '+') {
+          i.amount = costState;
           line = parseInt(i.odds.slice(1)) / 100;
           let betFave = parseFloat(line * i.amount).toFixed(2);
           let add = parseFloat(betFave) + parseFloat(i.amount);
           i.winnings = add;
           allWinnings.push(add);
         } else {
+          i.amount = costState;
           line = 100 / parseInt(i.odds.slice(1));
           let betFave = parseFloat(line * i.amount).toFixed(2);
           let add = parseFloat(betFave) + parseFloat(i.amount);
@@ -539,13 +575,14 @@ function updateWinnings() {
           i.winnings = add;
         }
       } else {
+        i.amount = costState;
         allWinnings.push(parseFloat((i.amount * 2).toFixed(2)));
         i.winnings = parseFloat((i.amount * 2).toFixed(2));
       }
     });
     if (betsSelected.length > 0) {
       winningsState = allWinnings.reduce((acc, curr) => acc + curr).toFixed(2);
-      cashWinnings.innerText = `${winningsState}`;
+      cashWinnings.innerText = `$${winningsState}`;
     } else {
       cashWinnings.innerText = `$0.00`;
     }
@@ -568,7 +605,6 @@ function updateBetAmount() {
   if (betsSelected.length > 0) {
     costState = allAmounts.reduce((acc, curr) => acc + curr);
   }
-  console.log(betsSelected);
 }
 
 function updateInput() {
@@ -587,13 +623,14 @@ function cancelBet(time) {
     betConfirmation.style.display = 'none';
     betsSelected = [];
     matchDetailsContainer.innerHTML = '';
-    console.log(betsSelected);
   }, time);
   numOfBets.style.display = 'none';
   cashAmount.innerText = '$0.00';
   cashWinnings.innerText = `$0.00`;
   document.getElementById('parlay-amount').value = 0;
   parlayInput.style.display = 'none';
+  costState = 0;
+  updateWinnings();
 }
 
 // MESSAGE/ERROR FUNC
@@ -681,12 +718,16 @@ function addOpenBetHTML() {
 // LOGIN / SIGN UP / CREATE ACCOUNT / LS?
 
 // WHEN CHOOSING BET TYPE - IF PARLAY/REMOVE INPUT FROM EACH GAME
+
+let unChanged = true;
+
 document.getElementById('choose-straight').addEventListener('click', () => {
   chooseBetType.style.display = 'none';
   typeOfBet = 'straight';
   straight.classList.add('selected');
   parlay.classList.remove('selected');
   betslipToggle.style.display = 'block';
+  unChanged = false;
 });
 document.getElementById('choose-parlay').addEventListener('click', () => {
   chooseBetType.style.display = 'none';
@@ -696,9 +737,22 @@ document.getElementById('choose-parlay').addEventListener('click', () => {
   if (betsSelected.length > 0) {
     parlayInput.style.display = 'block';
   }
-  removeInp();
+  if (!unChanged) {
+    removeInp();
+  }
+  if (betsSelected.length > 0 && unChanged) {
+    removeSingleBetInputs();
+  }
+  unChanged = false;
   betslipToggle.style.display = 'block';
 });
+
+function removeSingleBetInputs() {
+  document.querySelectorAll('.match-details-odds').forEach(i => {
+    i.removeChild(document.getElementById('single-bet'));
+    i.removeChild(document.querySelector('.bet-label'));
+  });
+}
 
 // DISABLE BUTTONS
 
@@ -726,8 +780,8 @@ document.getElementById('parlay-amount').addEventListener('change', e => {
     });
     costState = parseInt(e.target.value);
     winningsState = (costState * multiplyer).toFixed(2);
-    cashAmount.innerText = `${parlayAmount}`;
-    cashWinnings.innerText = `${winningsState}`;
+    cashAmount.innerText = `$${parlayAmount}`;
+    cashWinnings.innerText = `$${winningsState}`;
   } else {
     message('invalid amount');
   }
@@ -751,5 +805,74 @@ function removeInp() {
   });
 }
 
-// SWITCH BET TYPE - IF TYPEOF BET ADD OR REMOVE INPUTS
-// RESET BETSLIP IF BET IS CONFIRMED - MAYBE CANCELED?
+// FILTER SPORTS MENU
+
+function filterSportFunc(s1, s2, s3, t) {
+  s1.style.display = 'none';
+  s2.style.display = 'none';
+  s3.style.display = 'none';
+  t.style.display = 'block';
+  t.classList.add('filtered');
+}
+
+// HOME DISPLAY ALL SPORTS
+document.getElementById('home').addEventListener('click', () => {
+  nflContainer.style.display = 'block';
+  nbaContainer.style.display = 'block';
+  ufcContainer.style.display = 'block';
+  mlbContainer.style.display = 'block';
+});
+
+// CHANGE NON TEAM SPORTS
+function changeToFighting(s1) {
+  let cont = document.getElementById(`${s1}`);
+  cont.childNodes.forEach(i => {
+    if (i.id === 'nfl-game') {
+      i.children[0].classList = 'fight-event';
+      i.children[1].classList = 'fight-event';
+      i.children[2].classList = 'fight-event';
+      let changeText1 = i.children[1].children[2].innerText.slice(1);
+      let changeText2 = i.children[2].children[2].innerText.slice(1);
+      i.children[0].children[2].innerText = 'rounds';
+      i.children[1].children[2].innerText = changeText1;
+      i.children[2].children[2].innerText = changeText2;
+      i.children[0].children[3].style.display = 'none';
+      i.children[1].children[3].style.display = 'none';
+      i.children[2].children[3].style.display = 'none';
+    }
+  });
+}
+setTimeout(() => {
+  changeToFighting('ufc-container');
+}, 140);
+
+// ACCOUNT LOGIN/SIGN UP/LS
+const signUpForm = document.getElementById('sign-up-form');
+const signUpItem = document.getElementById('sign-up-btn');
+const loginForm = document.getElementById('login-form');
+const loginItem = document.querySelectorAll('#login-item');
+const dim = document.getElementById('dim');
+const exitForm = document.querySelectorAll('#exit-form');
+
+loginItem.forEach(i => {
+  i.addEventListener('click', () => {
+    dim.style.display = 'block';
+    loginForm.style.display = 'block';
+  });
+});
+signUpItem.addEventListener('click', () => {
+  loginForm.style.display = 'none';
+  signUpForm.style.display = 'block';
+});
+
+exitForm.forEach(i => {
+  i.addEventListener('click', closeForm);
+});
+function closeForm() {
+  loginForm.style.display = 'none';
+  signUpForm.style.display = 'none';
+  dim.style.display = 'none';
+}
+
+// FINISH FORMS
+// ADD ACCOUNT FUNDS

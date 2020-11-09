@@ -11,6 +11,91 @@ body {
   position: relative;
 }
 
+.dim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(0, 0, 0);
+  opacity: 0.5;
+  z-index: 10;
+  display: none;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-container input {
+  width: 40%;
+  padding: 0.3rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.form-container label {
+  margin-top: 0.5rem;
+  color: cadetblue;
+  margin-right: 33.3%;
+}
+
+.submit-sign-up {
+  cursor: pointer;
+  margin-top: 1rem;
+}
+.submit-login {
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.login-form {
+  position: fixed;
+  z-index: 11;
+  text-align: center;
+  padding-top: 1rem;
+  left: 25%;
+  top: 20vh;
+  width: 50vw;
+  height: 60vh;
+  border: 2px solid #fff;
+  background: #333;
+  border-radius: 10px;
+  display: none;
+}
+.sign-up-form {
+  position: fixed;
+  z-index: 11;
+  text-align: center;
+  padding-top: 1rem;
+  left: 25%;
+  top: 20vh;
+  width: 50vw;
+  height: 50vh;
+  border: 2px solid #fff;
+  background: #333;
+  border-radius: 10px;
+  display: none;
+}
+
+.exit-form {
+  float: left;
+  padding-left: 1rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.sign-up-btn {
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  font-size: 1.4rem;
+}
+
 .nav-title {
   padding: 1rem;
   font-size: 1.6rem;
@@ -36,10 +121,6 @@ body {
 
 .ni-right .nav-item:hover {
   animation: bounce 0.5s forwards;
-}
-.ni-right .nav-item p:hover {
-  color: rgb(216, 20, 89);
-  transition: color 0.2s ease;
 }
 
 .ni-mid {
@@ -97,7 +178,7 @@ body {
   height: 98%;
   position: absolute;
   top: 7.56rem;
-  left: -33rem;
+  left: -50%;
   border-right: 1px solid rgba(216, 20, 89, 1);
   /* box-shadow: 6px 6px 6px -6px rgb(31, 73, 125),
     -6px -6px 0 -6px rgb(31, 73, 125); */
@@ -123,10 +204,10 @@ body {
 
 .mp-item {
   width: 60%;
-  font-size: 3rem;
+  font-size: 2.4rem;
   margin-top: 3.2rem;
   text-align: center;
-  padding-bottom: 1rem;
+  padding-bottom: 0.8rem;
   border-bottom: 1px solid transparent;
 }
 
@@ -177,9 +258,52 @@ body {
 .nfl-container {
   padding: 2rem;
 }
+.nfl-container.filtered {
+  min-height: 100vh;
+}
 
 .nfl-container h2 {
   margin-bottom: 2rem;
+}
+
+.nba-container {
+  padding: 2rem;
+}
+.nba-container.filtered {
+  min-height: 100vh;
+}
+
+.nba-container h2 {
+  margin-bottom: 2rem;
+}
+
+.ufc-container {
+  padding: 2rem;
+}
+.ufc-container.filtered {
+  min-height: 100vh;
+}
+
+.ufc-container h2 {
+  margin-bottom: 2rem;
+}
+
+.mlb-container {
+  padding: 2rem;
+}
+.mlb-container.filtered {
+  min-height: 100vh;
+}
+
+.mlb-container h2 {
+  margin-bottom: 2rem;
+}
+
+.no-matches {
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  padding: 1rem;
+  text-align: center;
 }
 
 .date-time {
@@ -199,6 +323,13 @@ body {
   grid-template-columns: repeat(4, 1fr);
   place-items: center;
   margin-bottom: 0.2rem;
+}
+.fight-event {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  place-items: center;
+  margin-bottom: 0.2rem;
+  font-size: 1.2rem;
 }
 
 .team-1 {
@@ -841,7 +972,7 @@ body {
 
 @keyframes pop-in-anima {
   0% {
-    left: -33rem;
+    left: -50%;
   }
   100% {
     left: 0;
@@ -852,7 +983,7 @@ body {
     left: 0;
   }
   100% {
-    left: -33rem;
+    left: -50%;
   }
 }
 @keyframes pop-in-anima-xsm {
@@ -973,6 +1104,25 @@ body {
   100% {
     top: -7px;
     right: -111%;
+  }
+}
+
+@keyframes transfer-sm {
+  0% {
+    top: -5%;
+    right: -5px;
+  }
+  33% {
+    top: -150%;
+    right: -5px;
+  }
+  66% {
+    top: -150%;
+    right: -120%;
+  }
+  100% {
+    top: -7px;
+    right: -120%;
   }
 }
 
@@ -1183,11 +1333,43 @@ body > .showcase {
     animation: start-anima2 1s forwards;
     /* transform: translateX(-50%); */
   }
+  .mp-item {
+    width: 60%;
+    font-size: 2rem;
+    margin-top: 1.4rem;
+    text-align: center;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid transparent;
+  }
+  .ob-grid-game {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 850px) {
+  .match-details {
+    font-size: 1rem;
+  }
+
+  .single-bet {
+    font-size: 1rem;
+  }
+
   .ni-right {
     display: none;
+  }
+
+  .team-1 {
+    font-size: 1rem;
+  }
+  .team-2 {
+    font-size: 1rem;
+  }
+  .fight-event {
+    font-size: 1rem;
+  }
+  .pholder {
+    font-size: 1rem;
   }
 
   .nav-title {
@@ -1251,19 +1433,43 @@ body > .showcase {
     animation: shrink-sm 0.75s forwards;
   }
   .menu-popout {
-    /* display: none; */
-    width: 44%;
-    height: 50%;
-    position: absolute;
-    top: 6.3rem;
-    left: -33rem;
-    border-right: 1px solid rgba(216, 20, 89, 1);
-    /* box-shadow: 6px 6px 6px -6px rgb(31, 73, 125),
-      -6px -6px 0 -6px rgb(31, 73, 125); */
+    margin-left: 1rem;
+    margin-top: -1.4rem;
   }
 }
 
 @media (max-width: 600px) {
+  .footer-item {
+    width: 70%;
+  }
+  .home-footer {
+    margin-left: 30%;
+  }
+  .open-bets {
+    margin-right: 30%;
+  }
+  .num-open-bets {
+    transform: scale(0.85);
+  }
+  .num-of-bets {
+    transform: scale(0.85);
+  }
+
+  .num-of-bets.transfer {
+    animation: transfer-sm 1s forwards;
+  }
+
+  .ob-grid-game {
+    font-size: 0.8rem;
+  }
+
+  .match-details {
+    font-size: 0.8rem;
+  }
+  .single-bet {
+    font-size: 0.8rem;
+  }
+
   .footer-item {
     font-size: 1.2rem;
   }
@@ -1289,6 +1495,38 @@ body > .showcase {
   }
   .menu-popout {
     border: none;
+  }
+  .team-1 {
+    font-size: 0.8rem;
+  }
+  .team-2 {
+    font-size: 0.8rem;
+  }
+  .fight-event {
+    font-size: 0.8rem;
+  }
+  .pholder {
+    font-size: 0.8rem;
+  }
+
+  .login-form {
+    position: fixed;
+    width: 99vw;
+    left: 0%;
+  }
+
+  .sign-up-form {
+    position: fixed;
+    width: 99vw;
+    left: 0%;
+  }
+  .mp-item {
+    width: 60%;
+    font-size: 1.8rem;
+    margin-top: 1.6rem;
+    text-align: center;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid transparent;
   }
 }
 @media (max-width: 375px) {
