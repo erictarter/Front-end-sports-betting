@@ -1555,4 +1555,16 @@ body > .showcase {
   .main-container {
     border: none;
   }
+  .betslip-container {
+    height: 91.8%;
+  }
+  .open-bets-container {
+    height: 91.8%;
+  }
+  .choose-parlay {
+    z-index: 21;
+  }
+  .choose-straight {
+    z-index: 21;
+  }
 }
