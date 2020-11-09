@@ -276,6 +276,7 @@ let openBetStorage = [];
 // BET EVENT FUNCTION
 function betEventFunc(e) {
   if (e.target.parentNode.classList[0] === 'team-1') {
+    console.log(e.target.parentNode);
     let betSelect = {
       id: betsSelected.length,
       field: 'away',
@@ -366,6 +367,7 @@ function betEventFunc(e) {
       message('10 Bet max per slip');
     }
   } else {
+    console.log(e.target.parentNode);
     let betSelect = {
       id: betsSelected.length,
       field: 'home',
@@ -644,6 +646,7 @@ function message(msg) {
 
 // ADD OPEN BET HTML
 function addOpenBetHTML() {
+  console.log(openBets);
   let subBetType;
   if (typeOfBet === 'straight') {
     subBetType = 'S';
@@ -689,7 +692,7 @@ function addOpenBetHTML() {
         document.getElementById('ob-grid-games').innerHTML += `
         <div class="ob-grid-game">
         <div class="ob-game dark">
-        ${i.selectedTeamName} @ <span class="ob-pick">${i.oponentName} </span>
+        ${i.oponentName} @ <span class="ob-pick">${i.selectedTeamName} </span>
           <span class="ob-bet-type p" id='ob-bet-type'>(${subBetType})</span>
         </div>
         <div class="ob-odds dark">${i.odds}</div>
@@ -701,7 +704,7 @@ function addOpenBetHTML() {
         document.getElementById('ob-grid-games').innerHTML += `
         <div class="ob-grid-game">
         <div class="ob-game dark">
-          ${i.selectedTeamName} @ <span class="ob-pick">${i.oponentName}</span>
+        <span class="ob-pick">${i.selectedTeamName}</span> @ ${i.oponentName}
           <span class="ob-bet-type p" id='ob-bet-type'>(${subBetType})</span>
         </div>
         <div class="ob-odds dark">${i.odds}</div>
@@ -823,22 +826,18 @@ document.getElementById('home').addEventListener('click', () => {
   mlbContainer.style.display = 'block';
 });
 
-// CHANGE NON TEAM SPORTS
 function changeToFighting(s1) {
   let cont = document.getElementById(`${s1}`);
   cont.childNodes.forEach(i => {
     if (i.id === 'nfl-game') {
-      i.children[0].classList = 'fight-event';
-      i.children[1].classList = 'fight-event';
-      i.children[2].classList = 'fight-event';
       let changeText1 = i.children[1].children[2].innerText.slice(1);
       let changeText2 = i.children[2].children[2].innerText.slice(1);
-      i.children[0].children[2].innerText = 'rounds';
-      i.children[1].children[2].innerText = changeText1;
-      i.children[2].children[2].innerText = changeText2;
-      i.children[0].children[3].style.display = 'none';
-      i.children[1].children[3].style.display = 'none';
-      i.children[2].children[3].style.display = 'none';
+      i.children[0].children[2].innerText = 'Over';
+      i.children[0].children[3].innerText = 'Under';
+      i.children[1].children[2].innerText = `ov-${changeText1} rds`;
+      i.children[2].children[2].innerText = `ov-${changeText2} rds`;
+      i.children[1].children[3].innerText = `u-${changeText1} rds`;
+      i.children[2].children[3].innerText = `u-${changeText2} rds`;
     }
   });
 }
@@ -876,3 +875,4 @@ function closeForm() {
 
 // FINISH FORMS
 // ADD ACCOUNT FUNDS
+// @ VS for fight ENEVENTS

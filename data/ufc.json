@@ -8,13 +8,13 @@
       "name": "Conor McGregor",
       "moneyline": -120,
       "spread": -3,
-      "total": "total -"
+      "total": "total 3"
     },
     "home": {
       "name": "Dustin Porier",
       "moneyline": "+110",
       "spread": "+3",
-      "total": "total -"
+      "total": "total 3"
     }
   },
   {
@@ -26,13 +26,13 @@
       "name": "Hamzat Chimaeove",
       "moneyline": "+150",
       "spread": "+4",
-      "total": "total -"
+      "total": "total 4"
     },
     "home": {
       "name": "Leon Edwards",
       "moneyline": -170,
       "spread": -4,
-      "total": "total -"
+      "total": "total 4"
     }
   }
 ]

@@ -1439,6 +1439,9 @@ body > .showcase {
 }
 
 @media (max-width: 600px) {
+  .sticky {
+    padding-bottom: 20px;
+  }
   .footer-item {
     width: 70%;
   }
