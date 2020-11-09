@@ -1532,16 +1532,16 @@ body > .showcase {
     border-bottom: 1px solid transparent;
   }
   .betslip-container {
-    height: 91.8%;
+    height: 93.8%;
   }
   .open-bets-container {
-    height: 91.8%;
+    height: 93.8%;
   }
   .choose-parlay {
-    z-index: 21;
+    background: #fff;
   }
   .choose-straight {
-    z-index: 21;
+    background: #fff;
   }
 }
 @media (max-width: 375px) {
