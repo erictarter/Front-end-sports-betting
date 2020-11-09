@@ -1531,6 +1531,18 @@ body > .showcase {
     padding-bottom: 0.2rem;
     border-bottom: 1px solid transparent;
   }
+  .betslip-container {
+    height: 91.8%;
+  }
+  .open-bets-container {
+    height: 91.8%;
+  }
+  .choose-parlay {
+    z-index: 21;
+  }
+  .choose-straight {
+    z-index: 21;
+  }
 }
 @media (max-width: 375px) {
   .ni-mid {
@@ -1554,17 +1566,5 @@ body > .showcase {
   }
   .main-container {
     border: none;
-  }
-  .betslip-container {
-    height: 91.8%;
-  }
-  .open-bets-container {
-    height: 91.8%;
-  }
-  .choose-parlay {
-    z-index: 21;
-  }
-  .choose-straight {
-    z-index: 21;
   }
 }
