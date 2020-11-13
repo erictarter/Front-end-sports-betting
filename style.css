@@ -54,6 +54,48 @@ body {
   margin-top: 1rem;
 }
 
+.account-created {
+  position: fixed;
+  z-index: 11;
+  text-align: center;
+  padding-top: 1rem;
+  left: 30%;
+  top: 2vh;
+  width: 40vw;
+  height: 10vh;
+  font-size: 1.4rem;
+  border: 2px solid #fff;
+  background: #333;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+.account-created.show {
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+
+.logged-in-message {
+  position: fixed;
+  z-index: 11;
+  text-align: center;
+  padding-top: 1rem;
+  left: 30%;
+  top: 2vh;
+  width: 40vw;
+  height: 10vh;
+  font-size: 1.4rem;
+  border: 2px solid #fff;
+  background: #333;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+.logged-in-message.show {
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
 .login-form {
   position: fixed;
   z-index: 11;
@@ -68,6 +110,22 @@ body {
   border-radius: 10px;
   display: none;
 }
+
+.login-message {
+  position: absolute;
+  right: 1rem;
+  top: 0.5rem;
+  background: rgb(225, 86, 123);
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.login-message.show {
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+
 .sign-up-form {
   position: fixed;
   z-index: 11;
@@ -97,11 +155,73 @@ body {
 }
 
 .nav-title {
+  position: relative;
   padding: 1rem;
   font-size: 1.6rem;
   display: grid;
   grid-template-columns: 2fr 25fr 3fr;
   align-items: center;
+}
+
+.profile-border {
+  width: 15rem;
+  height: 3rem;
+  position: absolute;
+  border: 1px solid #fff;
+  right: 1.5rem;
+  top: 25%;
+  border-radius: 10px;
+}
+
+.user-i {
+  position: absolute;
+  right: 14.7rem;
+  top: 37%;
+  font-size: 1.4rem;
+}
+.user-i-1 {
+  position: absolute;
+  right: 14rem;
+  top: 37.5%;
+  font-size: 1.4rem;
+}
+
+.account {
+  font-size: 1rem;
+  position: absolute;
+  left: 80%;
+  top: 30%;
+}
+
+.logout {
+  position: absolute;
+  font-size: 1rem;
+  right: 2rem;
+  top: 45%;
+  display: none;
+}
+.logout span {
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+.logout i {
+  cursor: pointer;
+  font-size: 1.4rem;
+}
+
+.login-item {
+  position: absolute;
+  font-size: 1rem;
+  right: 2rem;
+  top: 45%;
+}
+.login-item span {
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+.login-item i {
+  cursor: pointer;
+  font-size: 1.4rem;
 }
 
 .nav-items {
@@ -113,6 +233,7 @@ body {
   position: relative;
   right: 1rem;
   padding-left: 15%;
+  display: none;
 }
 
 .ni-right .nav-item {
@@ -397,6 +518,7 @@ body {
   bottom: 9.2%;
   width: 70%;
   height: 90.8%;
+  z-index: 50;
 }
 
 .betslip-container.bs-slide-in {
@@ -622,6 +744,7 @@ body {
   bottom: 9.2%;
   width: 70%;
   height: 90.8%;
+  z-index: 50;
 }
 
 .ob-grid-head {
@@ -704,6 +827,7 @@ body {
   place-items: center;
   font-size: 1.6rem;
   padding: 10px 0;
+  z-index: 51;
 }
 
 .sticky.shrink-sticky {
@@ -842,10 +966,10 @@ body {
     margin-left: 0%;
   }
   45% {
-    margin-left: 49.5%;
+    margin-left: 0%;
   }
   100% {
-    margin-left: 47%;
+    margin-left: -3%;
   }
 }
 
@@ -854,10 +978,10 @@ body {
     margin-left: 0%;
   }
   45% {
-    margin-left: 51.5%;
+    margin-left: 0%;
   }
   100% {
-    margin-left: 49%;
+    margin-left: -3%;
   }
 }
 
@@ -1141,6 +1265,15 @@ body {
   }
 }
 
+@keyframes slide-up-title {
+  0% {
+    height: 100%;
+  }
+  100% {
+    height: 0%;
+  }
+}
+
 /* @keyframes blink {
     0% {
       background: orange;
@@ -1373,14 +1506,21 @@ body > .showcase {
   }
 
   .nav-title {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     display: flex;
     flex-direction: row;
     position: relative;
   }
-  .ni-mid {
-    position: absolute;
-    right: 0.4rem;
+
+  .ni-mid i {
+    font-size: 1.4rem;
+  }
+
+  .ni-left i {
+    font-size: 1.4rem;
+  }
+  .nav-title {
+    padding: 1.5rem 1rem;
   }
 
   .betslip-container {
@@ -1476,10 +1616,6 @@ body > .showcase {
   .footer-item {
     font-size: 1.2rem;
   }
-  .ni-mid {
-    position: absolute;
-    right: 0.4rem;
-  }
   .main-container.shrink {
     position: absolute;
     animation: shrink-xsm 0.75s forwards;
@@ -1531,15 +1667,15 @@ body > .showcase {
     padding-bottom: 0.2rem;
     border-bottom: 1px solid transparent;
   }
-  .betslip-container {
-  }
-  .open-bets-container {
-  }
   .choose-parlay {
     background: #fff;
   }
   .choose-straight {
     background: #fff;
+  }
+
+  .ni-mid {
+    display: none;
   }
 }
 @media (max-width: 375px) {

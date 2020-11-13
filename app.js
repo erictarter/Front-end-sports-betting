@@ -9,6 +9,10 @@ document.querySelector('.sb-1').classList.add('side-laser');
 
 // DOM SELECTORS
 
+import { loggedIn } from './forms.js';
+let money;
+// import { money } from './forms.js';
+
 const mainContainer = document.getElementById('main-container');
 const sticky = document.getElementById('sticky');
 const main = document.getElementById('main');
@@ -41,6 +45,7 @@ const messageEl = document.getElementById('message');
 const chooseBetType = document.getElementById('choose-bet-type');
 const changeType = document.getElementById('change-type');
 const parlayInput = document.getElementById('parlay-input');
+const niAccount = document.getElementById('ni-account');
 
 // STATE NUMBERS
 
@@ -143,6 +148,13 @@ confirmBtn.addEventListener('click', () => {
   numOfBets.classList.add('transfer');
   betsSelected.map(i => openBets.push(i));
   betsSelected.map(i => openBetStorage.push(i));
+  if (typeOfBet === 'parlay') {
+    console.log(openBets);
+    console.log(winningsState);
+    openBets.map(i => {
+      i.winnings = parseFloat(winningsState);
+    });
+  }
   betsSelected = [];
   setTimeout(() => {
     numOfBets.classList.remove('transfer');
@@ -151,7 +163,9 @@ confirmBtn.addEventListener('click', () => {
     betSlipContainer.classList.add('bs-slide-out');
     document.getElementById('confirm-icon').classList.remove('confirmed');
     openBetsNum += openBets.length;
-    numOfOpenBets.innerText = openBetsNum;
+    numOfOpenBets.innerText = JSON.parse(
+      localStorage.getItem('open bets')
+    ).length;
     addOpenBetHTML();
     cancelBet(0);
     winningsState = 0;
@@ -165,6 +179,10 @@ confirmBtn.addEventListener('click', () => {
     typeOfBet = 'straight';
   }, 1500);
   updateWinnings();
+  updateFunds();
+  localStorage.setItem('open bets', JSON.stringify(openBetStorage));
+  console.log(openBets);
+  console.log(openBetStorage);
 });
 
 // CLEAR BETSLIP
@@ -174,19 +192,32 @@ clearBetsBtn.addEventListener('click', () => {
 
 placeBetsBtn.addEventListener('click', () => {
   let proceed = true;
+  let msg = '';
+  if (!loggedIn) {
+    proceed = false;
+    msg = 'must be signed in to place a bet!';
+  }
   if (betsSelected.length === 0) {
     proceed = false;
+    msg = 'No bets have been added!';
   }
   betsSelected.map(i => {
     if (i.amount === 0) {
       proceed = false;
+      msg = 'No amount has been placed on some bet/bets!';
     }
   });
+  if (parseFloat(localStorage.getItem('money')) < parseFloat(costState)) {
+    proceed = false;
+    msg = 'insufficient funds!';
+  }
+  console.log(costState);
+
   if (costState > 0 && proceed) {
     betslipToggle.style.display = 'none';
     betConfirmation.style.display = 'block';
   } else {
-    message('No amount has been placed on some bet/bets!');
+    message(msg);
   }
 });
 
@@ -276,11 +307,12 @@ let openBetStorage = [];
 // BET EVENT FUNCTION
 function betEventFunc(e) {
   if (e.target.parentNode.classList[0] === 'team-1') {
-    console.log(e.target.parentNode);
+    console.log(typeOfBet);
     let betSelect = {
       id: betsSelected.length,
       field: 'away',
       betType: e.target.classList,
+      parlayOrStraight: typeOfBet,
       odds: e.target.innerText,
       selectedTeam: e.target,
       selectedTeamName: e.target.parentNode.children[0].innerText,
@@ -367,11 +399,12 @@ function betEventFunc(e) {
       message('10 Bet max per slip');
     }
   } else {
-    console.log(e.target.parentNode);
+    console.log(typeOfBet);
     let betSelect = {
       id: betsSelected.length,
       field: 'home',
       betType: e.target.classList,
+      parlayOrStraight: typeOfBet,
       odds: e.target.innerText,
       selectedTeam: e.target,
       selectedTeamName: e.target.parentNode.children[0].innerText,
@@ -609,6 +642,20 @@ function updateBetAmount() {
   }
 }
 
+function updateFunds() {
+  money = parseFloat(localStorage.getItem('money')).toFixed(2);
+  let newFunds = parseFloat(money - costState);
+  document.getElementById('funds').innerText = `$${parseFloat(newFunds).toFixed(
+    2
+  )}`;
+  localStorage.setItem('money', parseFloat(newFunds));
+  money = parseFloat(localStorage.getItem('money')).toFixed(2);
+  console.log(costState);
+  console.log(money);
+  console.log(newFunds);
+  console.log(localStorage);
+}
+
 function updateInput() {
   betsSelected.map((i, index) => {
     matchDetailsContainer.children[index].childNodes[1].children[2].value =
@@ -646,11 +693,9 @@ function message(msg) {
 
 // ADD OPEN BET HTML
 function addOpenBetHTML() {
-  console.log(openBets);
   let subBetType;
   if (typeOfBet === 'straight') {
     subBetType = 'S';
-    typeColor = 'rgb(119, 177, 145)';
     openBets.map(i => {
       if (i.field === 'home') {
         document.getElementById('ob-grid-games').innerHTML += `
@@ -681,9 +726,6 @@ function addOpenBetHTML() {
           `;
       }
     });
-    // document
-    //   .querySelectorAll('.ob-bet-type')
-    //   .forEach(i => (i.style.color = typeColor));
     openBets = [];
   } else {
     subBetType = 'P';
@@ -745,6 +787,9 @@ document.getElementById('choose-parlay').addEventListener('click', () => {
   }
   if (betsSelected.length > 0 && unChanged) {
     removeSingleBetInputs();
+    betsSelected.map(i => {
+      i.parlayOrStraight = 'parlay';
+    });
   }
   unChanged = false;
   betslipToggle.style.display = 'block';
@@ -873,6 +918,83 @@ function closeForm() {
   dim.style.display = 'none';
 }
 
-// FINISH FORMS
-// ADD ACCOUNT FUNDS
-// @ VS for fight ENEVENTS
+// ADD OPEN BETS TO LS
+
+// SEARCH LOCAL STORAGE BETS
+// let lsOpenBets;
+if (localStorage.getItem('open bets')) {
+  openBetStorage = JSON.parse(localStorage.getItem('open bets'));
+  addOpenBetLsHTML();
+  console.log(openBetStorage);
+  numOfOpenBets.innerText = openBetStorage.length;
+} else {
+  console.log('no open bets');
+}
+
+function addOpenBetLsHTML() {
+  openBetStorage.map(i => {
+    console.log(i);
+    if (i.parlayOrStraight === 'straight') {
+      if (i.field === 'home') {
+        document.getElementById('ob-grid-games').innerHTML += `
+          <div class="ob-grid-game">
+          <div class="ob-game dark">
+          ${i.oponentName}
+           @ <span class="ob-pick">${i.selectedTeamName} </span>
+            <span class="ob-bet-type s" id='ob-bet-type'>(S)</span>
+          </div>
+          <div class="ob-odds dark">${i.odds}</div>
+          <div class="ob-cost dark">$${i.amount}</div>
+          <div class="ob-winnings dark">$${i.winnings.toFixed(2)}</div>
+        </div>
+          `;
+      } else {
+        document.getElementById('ob-grid-games').innerHTML += `
+          <div class="ob-grid-game">
+          <div class="ob-game dark">
+            <span class="ob-pick">${i.selectedTeamName}</span> @ ${
+          i.oponentName
+        }
+            <span class="ob-bet-type s" id='ob-bet-type'>(S)</span>
+          </div>
+          <div class="ob-odds dark">${i.odds}</div>
+          <div class="ob-cost dark">$${i.amount}</div>
+          <div class="ob-winnings dark">$${i.winnings.toFixed(2)}</div>
+        </div>
+          `;
+      }
+    }
+
+    if (i.parlayOrStraight === 'parlay') {
+      if (i.field === 'home') {
+        document.getElementById('ob-grid-games').innerHTML += `
+        <div class="ob-grid-game">
+        <div class="ob-game dark">
+        ${i.oponentName} @ <span class="ob-pick">${i.selectedTeamName} </span>
+          <span class="ob-bet-type p" id='ob-bet-type'>(P)</span>
+        </div>
+        <div class="ob-odds dark">${i.odds}</div>
+        <div class="ob-cost dark">$${i.amount}</div>
+        <div class="ob-winnings dark">$${i.winnings}</div>
+      </div>
+        `;
+      } else {
+        document.getElementById('ob-grid-games').innerHTML += `
+        <div class="ob-grid-game">
+        <div class="ob-game dark">
+        <span class="ob-pick">${i.selectedTeamName}</span> @ ${i.oponentName}
+          <span class="ob-bet-type p" id='ob-bet-type'>(P)</span>
+        </div>
+        <div class="ob-odds dark">${i.odds}</div>
+        <div class="ob-cost dark">$${i.amount}</div>
+        <div class="ob-winnings dark">$${i.winnings}</div>
+      </div>
+        `;
+      }
+    }
+  });
+}
+
+if (!loggedIn) {
+  document.getElementById('ob-grid-games').style.display = 'none';
+}

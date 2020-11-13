@@ -19,7 +19,16 @@
   </head>
   <body>
     <div class="dim" id="dim"></div>
+    <div class="account-created" id="account-created">
+      account successfully created <i class="fas fa-check"></i>
+    </div>
+    <div class="logged-in-message" id="logged-in-message">
+      Logged in <i class="fas fa-check"></i>
+    </div>
     <div class="login-form" id="login-form">
+      <div class="login-message" id="login-message">
+        username and password do not match
+      </div>
       <i class="fas fa-times exit-form" id="exit-form"></i>
       <br />
       <h2>Log in</h2>
@@ -55,6 +64,9 @@
       </button>
     </div>
     <div class="sign-up-form" id="sign-up-form">
+      <div class="login-message" id="signup-message">
+        invalid username and/or password
+      </div>
       <i class="fas fa-times exit-form" id="exit-form"></i>
       <h2>Sign Up</h2>
       <form action="" id="sign-up-form-1">
@@ -85,6 +97,22 @@
       </form>
     </div>
     <div class="nav-title">
+      <div class="profile-border"></div>
+      <div class="user-i" id="user-i">
+        <i class="fas fa-user"></i>
+      </div>
+      <div class="user-i-1" id="user-i-1">
+        <i class="fas fa-user-slash"></i>
+      </div>
+      <div class="logout" id="logout">
+        <span id="log-out-btn">logout</span>
+        <i class="fas fa-sign-out-alt"></i>
+      </div>
+      <div class="login-item" id="login-item">
+        <span id="log-in-btn">login</span>
+        <i class="fas fa-sign-in-alt" id="log-in-btn"></i>
+      </div>
+      <div class="account" id="account"></div>
       <div class="nav-items ni-left">
         <i class="fas fa-bars"></i>
       </div>
@@ -99,9 +127,9 @@
         </div>
       </div>
       <div class="nav-items ni-right">
-        <div class="nav-item"><p>Account</p></div>
-        <div class="nav-item" id="login-item"><p>Login</p></div>
-        <div class="nav-item"><p>More</p></div>
+        <!-- <div class="nav-item" id="ni-account"><p>Account</p></div> -->
+        <!-- <div class="nav-item" id="login-item"><p>Login</p></div> -->
+        <!-- <div class="nav-item"><p>More</p></div> -->
       </div>
     </div>
     <div class="bb"></div>
@@ -252,7 +280,7 @@
         Open Bets
       </div>
     </footer>
-    <script src="app.js"></script>
-    <script src="forms.js"></script>
+    <script type="module" src="app.js"></script>
+    <script type="module" src="forms.js"></script>
   </body>
 </html>
