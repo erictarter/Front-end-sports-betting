@@ -44,7 +44,6 @@ function accountStart() {
   } else {
     loggedIn = false;
     account.innerHTML = `
-
           `;
     loginItem.style.display = 'block';
     logout.style.display = 'none';
@@ -120,6 +119,8 @@ logout.addEventListener('click', () => {
   loggedIn = false;
   accountStart();
   resetVals();
+  document.getElementById('ob-grid-games').style.display = 'none';
+  document.getElementById('num-open-bets').style.display = 'none';
 });
 
 function loginFunc(username) {
@@ -137,6 +138,7 @@ function signUpFunction() {
   loggedIn = true;
   accountStart();
   resetVals();
+  console.log(localStorage.getItem('open bets'));
 }
 
 function message(msg) {

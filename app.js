@@ -1,5 +1,3 @@
-// START ANIMATIONS
-
 document.querySelector('.ni-mid').classList.add('anima');
 
 document.querySelector('.bb').classList.add('bb-laser');
@@ -693,6 +691,7 @@ function message(msg) {
 
 // ADD OPEN BET HTML
 function addOpenBetHTML() {
+  document.getElementById('ob-grid-games').style.display = 'block';
   let subBetType;
   if (typeOfBet === 'straight') {
     subBetType = 'S';
@@ -924,6 +923,7 @@ function closeForm() {
 // let lsOpenBets;
 if (localStorage.getItem('open bets')) {
   openBetStorage = JSON.parse(localStorage.getItem('open bets'));
+  document.getElementById('ob-grid-games').style.display = 'block';
   addOpenBetLsHTML();
   console.log(openBetStorage);
   numOfOpenBets.innerText = openBetStorage.length;
@@ -932,6 +932,7 @@ if (localStorage.getItem('open bets')) {
 }
 
 function addOpenBetLsHTML() {
+  document.getElementById('ob-grid-games').style.display = 'block';
   openBetStorage.map(i => {
     console.log(i);
     if (i.parlayOrStraight === 'straight') {
