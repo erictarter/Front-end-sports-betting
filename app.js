@@ -8,6 +8,10 @@ document.querySelector('.sb-1').classList.add('side-laser');
 // DOM SELECTORS
 
 import { loggedIn } from './forms.js';
+import { signedUp } from './forms.js';
+import { signUpUsername } from './forms.js';
+import { signUpPass } from './forms.js';
+console.log(signedUp);
 let money;
 // import { money } from './forms.js';
 
@@ -999,3 +1003,19 @@ function addOpenBetLsHTML() {
 if (!loggedIn) {
   document.getElementById('ob-grid-games').style.display = 'none';
 }
+
+// OPEN BET STORAGE KEEPS ADDING UP WHEN NEW ACCOUNTS ARE CREATED
+
+const signupForm1 = document.getElementById('sign-up-form-1');
+var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+signupForm1.addEventListener('submit', e => {
+  e.preventDefault();
+  if (
+    signUpUsername.length > 5 &&
+    signUpUsername.length < 16 &&
+    signUpPass.match(passw)
+  ) {
+    openBetStorage = [];
+    document.getElementById('ob-grid-games').innerHTML = '';
+  }
+});

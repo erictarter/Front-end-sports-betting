@@ -16,11 +16,15 @@ let loginPass = '';
 let signUpUsername = '';
 let signUpPass = '';
 let loggedIn = false;
+let signedUp = false;
 let money;
 
 accountStart();
 
 function accountStart() {
+  if (localStorage.length > 0) {
+    signedUp = true;
+  }
   if (localStorage.length > 0 && loggedIn) {
     account.innerHTML = `
         <div class="account" id="account">
@@ -51,6 +55,7 @@ function accountStart() {
     document.getElementById('user-i-1').style.display = 'block';
     document.getElementById('sign-up-btn').disabled = false;
   }
+  console.log(signedUp, loggedIn);
 }
 
 var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
@@ -136,9 +141,9 @@ function loginFunc(username) {
 
 function signUpFunction() {
   loggedIn = true;
+  signedUp = true;
   accountStart();
   resetVals();
-  console.log(localStorage.getItem('open bets'));
 }
 
 function message(msg) {
@@ -154,5 +159,8 @@ function resetVals() {
 
 export { loggedIn };
 export { money };
+export { signedUp };
+export { signUpUsername };
+export { signUpPass };
 
 // ADD MESSAGES FOR LOGIN AND SIGN UP
