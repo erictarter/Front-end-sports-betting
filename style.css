@@ -1648,15 +1648,28 @@ body > .showcase {
     font-size: 0.8rem;
   }
 
+  .login-form h2 {
+    padding-top: 10%;
+  }
+  .sign-up-form h2 {
+    padding-top: 15%;
+  }
+
   .login-form {
     position: fixed;
-    width: 99vw;
+    width: 100vw;
+    height: 100vh;
     left: 0%;
+    top: 0%;
+    border: none;
   }
 
   .sign-up-form {
     position: fixed;
-    width: 99vw;
+    width: 100vw;
+    height: 100vh;
+    border: none;
+    top: 0%;
     left: 0%;
   }
   .mp-item {
