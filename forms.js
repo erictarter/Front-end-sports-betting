@@ -81,7 +81,7 @@ loginForm1.addEventListener('submit', e => {
     document.getElementById('logged-in-message').classList.add('show');
     setTimeout(() => {
       document.getElementById('logged-in-message').classList.remove('show');
-    }, 3000);
+    }, 2000);
   } else {
     message('username and password do not match');
     document.getElementById('login-message').classList.add('show');
@@ -110,7 +110,7 @@ signupForm1.addEventListener('submit', e => {
     document.getElementById('account-created').classList.add('show');
     setTimeout(() => {
       document.getElementById('account-created').classList.remove('show');
-    }, 3000);
+    }, 2000);
   } else {
     message('invalid username or passowrd');
     document.getElementById('signup-message').classList.add('show');
