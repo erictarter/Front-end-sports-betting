@@ -682,6 +682,7 @@ function cancelBet(time) {
   parlayInput.style.display = 'none';
   costState = 0;
   updateWinnings();
+  cashWinnings.innerText = `$0.00`;
 }
 
 // MESSAGE/ERROR FUNC
@@ -814,19 +815,19 @@ parlay.disabled = true;
 document.getElementById('parlay-amount').addEventListener('change', e => {
   if (e.target.value > 0) {
     parlayAmount = parseInt(e.target.value).toFixed(2);
-    let multiplyer = 0;
+    let multiplyer = 1;
     betsSelected.map(i => {
       i.amount = parseInt(e.target.value);
       let parseOdds = parseInt(i.odds.slice(1));
       if (i.betType[0] === 'money') {
         if (i.odds[0] === '+') {
-          multiplyer += parseOdds / 100 + 1;
+          multiplyer *= parseOdds / 100 + 1;
         }
         if (i.odds[0] === '-') {
-          multiplyer += 100 / parseOdds + 1;
+          multiplyer *= 100 / parseOdds + 1;
         }
       } else {
-        multiplyer += 2;
+        multiplyer *= 2;
       }
     });
     costState = parseInt(e.target.value);
