@@ -75,7 +75,10 @@ passSignup.addEventListener('change', e => {
 
 loginForm1.addEventListener('submit', e => {
   e.preventDefault();
-  if (localStorage.getItem('password') === loginPass) {
+  if (
+    localStorage.getItem('password') === loginPass &&
+    localStorage.getItem('username') === loginUsername
+  ) {
     loginFunc(loginUsername);
     loggedIn = true;
     document.getElementById('logged-in-message').classList.add('show');
