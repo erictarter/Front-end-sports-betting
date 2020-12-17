@@ -63,14 +63,53 @@ var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
 usernameLogin.addEventListener('change', e => {
   loginUsername = e.target.value;
 });
+usernameLogin.addEventListener('keyup', e => {
+  if (e.target.value !== '') {
+    gsap.to('.blue-line-1', { width: '43.5%', duration: 1 });
+    gsap.to('.blue-line-1-sm', { width: '43.5%', duration: 1 });
+  } else {
+    gsap.to('.blue-line-1', { width: 0, duration: 1 });
+    gsap.to('.blue-line-1-sm', { width: 0, duration: 1 });
+  }
+});
+
 passLogin.addEventListener('change', e => {
   loginPass = e.target.value;
 });
+passLogin.addEventListener('keyup', e => {
+  if (e.target.value !== '') {
+    gsap.to('.blue-line-2', { width: '43.5%', duration: 1 });
+    gsap.to('.blue-line-2-sm', { width: '43.5%', duration: 1 });
+  } else {
+    gsap.to('.blue-line-2', { width: 0, duration: 1 });
+    gsap.to('.blue-line-2-sm', { width: 0, duration: 1 });
+  }
+});
+
 usernameSignup.addEventListener('change', e => {
   signUpUsername = e.target.value;
 });
+usernameSignup.addEventListener('keyup', e => {
+  if (e.target.value !== '') {
+    gsap.to('.blue-line-3', { width: '42.8%', duration: 1 });
+    gsap.to('.blue-line-3-sm', { width: '42.8%', duration: 1 });
+  } else {
+    gsap.to('.blue-line-3', { width: 0, duration: 1 });
+    gsap.to('.blue-line-3-sm', { width: 0, duration: 1 });
+  }
+});
+
 passSignup.addEventListener('change', e => {
   signUpPass = e.target.value;
+});
+passSignup.addEventListener('keyup', e => {
+  if (e.target.value !== '') {
+    gsap.to('.blue-line-4', { width: '42.8%', duration: 1 });
+    gsap.to('.blue-line-4-sm', { width: '42.8%', duration: 1 });
+  } else {
+    gsap.to('.blue-line-4', { width: 0, duration: 1 });
+    gsap.to('.blue-line-4-sm', { width: 0, duration: 1 });
+  }
 });
 
 loginForm1.addEventListener('submit', e => {
@@ -81,10 +120,22 @@ loginForm1.addEventListener('submit', e => {
   ) {
     loginFunc(loginUsername);
     loggedIn = true;
-    document.getElementById('logged-in-message').classList.add('show');
+    document.getElementById('dim').style.display = 'block';
+    document.getElementById('my-spinner').style.display = 'block';
+    document.getElementById('line-an-1').classList.add('loading');
+    document.getElementById('line-an-2').classList.add('loading');
+    document.getElementById('line-an-3').classList.add('loading');
+    setTimeout(() => {
+      document.getElementById('logged-in-message').classList.add('show');
+      document.getElementById('dim').style.display = 'none';
+      document.getElementById('my-spinner').style.display = 'none';
+      document
+        .querySelectorAll('.line-an')
+        .forEach(i => i.classList.remove('loading'));
+    }, 2000);
     setTimeout(() => {
       document.getElementById('logged-in-message').classList.remove('show');
-    }, 2000);
+    }, 4000);
   } else {
     message('username and password do not match');
     document.getElementById('login-message').classList.add('show');

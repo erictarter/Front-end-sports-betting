@@ -25,7 +25,17 @@
     <div class="logged-in-message" id="logged-in-message">
       Logged in <i class="fas fa-check"></i>
     </div>
+    <div class="my-spinner" id="my-spinner">
+      Logging in...
+      <div class="line-an line-an-1" id="line-an-1"></div>
+      <div class="line-an line-an-2" id="line-an-2"></div>
+      <div class="line-an line-an-3" id="line-an-3"></div>
+    </div>
     <div class="login-form" id="login-form">
+      <div class="blue-line-1"></div>
+      <div class="blue-line-2"></div>
+      <div class="blue-line-1-sm"></div>
+      <div class="blue-line-2-sm"></div>
       <div class="login-message" id="login-message">
         username and password do not match
       </div>
@@ -37,18 +47,20 @@
           <label for="#username-login">username</label>
           <input
             type="text"
-            class="username-login"
+            class="username-login text-input"
             id="username-login"
             placeholder="enter username"
             value=""
+            autocomplete="off"
           />
           <label for="#username-pass">password</label>
           <input
             type="password"
-            class="pass-login"
+            class="pass-login text-input"
             id="pass-login"
             placeholder="enter password"
             value=""
+            autocomplete="off"
           />
           <input
             type="submit"
@@ -64,6 +76,10 @@
       </button>
     </div>
     <div class="sign-up-form" id="sign-up-form">
+      <div class="blue-line-3"></div>
+      <div class="blue-line-4"></div>
+      <div class="blue-line-3-sm"></div>
+      <div class="blue-line-4-sm"></div>
       <div class="login-message" id="signup-message">
         invalid username and/or password
       </div>
@@ -74,18 +90,20 @@
           <label for="#username-sign-up">username</label>
           <input
             type="text"
-            class="username-sign-up"
+            class="username-sign-up text-input"
             id="username-sign-up"
             placeholder="enter username"
             value=""
+            autocomplete="off"
           />
           <label for="#username-pass">password</label>
           <input
             type="password"
-            class="pass-sign-up"
+            class="pass-sign-up text-input"
             id="pass-sign-up"
             placeholder="enter password"
             value=""
+            autocomplete="off"
           />
           <input
             type="submit"
@@ -280,6 +298,11 @@
         Open Bets
       </div>
     </footer>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"
+      integrity="sha512-IQLehpLoVS4fNzl7IfH8Iowfm5+RiMGtHykgZJl9AWMgqx0AmJ6cRWcB+GaGVtIsnC4voMfm8f2vwtY+6oPjpQ=="
+      crossorigin="anonymous"
+    ></script>
     <script type="module" src="app.js"></script>
     <script type="module" src="forms.js"></script>
   </body>
