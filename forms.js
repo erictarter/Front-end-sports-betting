@@ -105,7 +105,7 @@ passSignup.addEventListener('change', e => {
 passSignup.addEventListener('keyup', e => {
   if (e.target.value !== '') {
     gsap.to('.blue-line-4', { width: '42.8%', duration: 1 });
-    gsap.to('.blue-line-4-sm', { width: '42.8%', duration: 1 });
+    gsap.to('.blue-line-4-sm', { width: 0, duration: 1 });
   } else {
     gsap.to('.blue-line-4', { width: 0, duration: 1 });
     gsap.to('.blue-line-4-sm', { width: 0, duration: 1 });
@@ -209,6 +209,10 @@ function resetVals() {
   usernameSignup.value = '';
   passLogin.value = '';
   passSignup.value = '';
+  gsap.to('.blue-line-1', { width: 0, duration: 1 });
+  gsap.to('.blue-line-2', { width: 0, duration: 1 });
+  gsap.to('.blue-line-3', { width: 0, duration: 1 });
+  gsap.to('.blue-line-4', { width: 0, duration: 1 });
 }
 
 export { loggedIn };
