@@ -238,6 +238,8 @@ body {
   cursor: pointer;
   padding: 0.3rem 0.6rem;
   font-size: 1.4rem;
+  color: #fff;
+  background: #333;
   -webkit-appearance: none;
   -moz-appearance: none;
 }
