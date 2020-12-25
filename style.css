@@ -77,6 +77,8 @@ body {
   background: #333;
   border: none;
   border-bottom: #fff 1px solid;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 .form-container input:focus {
@@ -93,11 +95,15 @@ body {
   cursor: pointer;
   margin-top: 1rem;
   border: 1px solid #fff !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 .submit-login {
   cursor: pointer;
   margin-top: 1rem;
   border: 1px solid #fff !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 .account-created {
